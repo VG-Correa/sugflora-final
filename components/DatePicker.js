@@ -8,7 +8,6 @@ import {
   Modal,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import DatePicker from "@dietime/react-native-date-picker";
 
 const CustomDatePicker = ({
   value,

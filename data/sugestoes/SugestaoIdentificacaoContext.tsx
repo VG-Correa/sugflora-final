@@ -101,27 +101,6 @@ export const SugestaoIdentificacaoDataProvider = ({
     return sugestaoService.getPendentes();
   }, [sugestaoService]);
 
-  const addSugestao = useCallback(
-    async (
-      sugestao: SugestaoIdentificacao
-    ): Promise<Message<SugestaoIdentificacao>> => {
-      const result = sugestaoService.add(sugestao);
-      if (result.status === 201 && result.data) {
-        setSugestoes([...sugestaoService.getAll().data!]);
-
-        // Enviar e-mail de notificação para o dono da coleta
-        try {
-          await enviarEmailSugestaoCriada(result.data);
-        } catch (error) {
-          console.error("Erro ao enviar e-mail de notificação:", error);
-          // Não falhar a criação da sugestão se o e-mail falhar
-        }
-      }
-      return result;
-    },
-    [sugestaoService, enviarEmailSugestaoCriada]
-  );
-
   /**
    * Envia e-mail de notificação quando uma sugestão é criada
    */
@@ -215,6 +194,27 @@ export const SugestaoIdentificacaoDataProvider = ({
       getGeneroById,
       getEspecieById,
     ]
+  );
+
+  const addSugestao = useCallback(
+    async (
+      sugestao: SugestaoIdentificacao
+    ): Promise<Message<SugestaoIdentificacao>> => {
+      const result = sugestaoService.add(sugestao);
+      if (result.status === 201 && result.data) {
+        setSugestoes([...sugestaoService.getAll().data!]);
+
+        // Enviar e-mail de notificação para o dono da coleta
+        try {
+          await enviarEmailSugestaoCriada(result.data);
+        } catch (error) {
+          console.error("Erro ao enviar e-mail de notificação:", error);
+          // Não falhar a criação da sugestão se o e-mail falhar
+        }
+      }
+      return result;
+    },
+    [sugestaoService, enviarEmailSugestaoCriada]
   );
 
   const updateSugestao = useCallback(

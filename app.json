@@ -2,6 +2,10 @@
   "expo": {
     "name": "sug-flora",
     "slug": "sug-flora",
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "plugins": [
+      "@react-native-community/datetimepicker",
+      "expo-font"
+    ]
   }
 }
